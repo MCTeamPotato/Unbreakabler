@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.teampotato.unbreakabler.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "unbreakabler.refmap.json",
+  "mixins": [
+    "MixinItem"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
