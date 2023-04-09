@@ -8,7 +8,6 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 @Mod(Unbreakabler.MOD_ID)
 public class Unbreakabler {
@@ -35,12 +34,13 @@ public class Unbreakabler {
     public static void giveUnbreakableTag(ItemStack itemStack, World world) {
         if (!itemStack.isDamageableItem() || !REMOVE_WEAPONS_AND_ARMORS_DURABILITY.get() || world.isClientSide || itemStack.getItem().getRegistryName() == null) return;
         String regName = itemStack.getItem().getRegistryName().toString();
-        Stream<? extends String> list = BLACKLIST_OR_WHITELIST_DAMAGEABLE_ITEMS.get().stream();
+        List<? extends String> list = BLACKLIST_OR_WHITELIST_DAMAGEABLE_ITEMS.get();
         if (MODE.get().equals("B")) {
-            if (list.anyMatch(regName::equals)) return;
+            if (list.contains(regName)) return;
         } else {
-            if (list.noneMatch(regName::equals)) return;
+            if (!list.contains(regName)) return;
         }
         itemStack.getOrCreateTag().putBoolean("Unbreakable", true);
     }
 }
+
