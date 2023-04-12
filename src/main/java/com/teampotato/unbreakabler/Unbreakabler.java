@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
@@ -11,6 +13,10 @@ import java.util.function.Predicate;
 
 @Mod(Unbreakabler.MOD_ID)
 public class Unbreakabler {
+    
+    public Unbreakabler() {
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG);
+    }
     public static final String MOD_ID = "unbreakabler";
 
     public static final ForgeConfigSpec COMMON_CONFIG;
