@@ -1,13 +1,14 @@
 package com.teampotato.unbreakabler;
 
 import com.google.common.collect.Lists;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -38,10 +39,11 @@ public class Unbreakabler {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG);
     }
 
-
     public static void giveUnbreakableTag(ItemStack itemStack, Level world) {
         if (!itemStack.isDamageableItem() || !REMOVE_WEAPONS_AND_ARMORS_DURABILITY.get() || world.isClientSide) return;
-        String regName = BuiltInRegistries.ITEM.getKey(itemStack.getItem()).toString();
+        ResourceLocation location = ForgeRegistries.ITEMS.getKey(itemStack.getItem());
+        if (location == null) return;
+        String regName = location.toString();
         List<? extends String> list = BLACKLIST_OR_WHITELIST_DAMAGEABLE_ITEMS.get();
         if (MODE.get().equals("B")) {
             if (list.contains(regName)) return;
@@ -51,4 +53,3 @@ public class Unbreakabler {
         itemStack.getOrCreateTag().putBoolean("Unbreakable", true);
     }
 }
-
