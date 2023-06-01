@@ -13,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
-version = '1.19-1.0.3'
+version = 'mc1.19.4-1.0.4'
 group = 'com.teampotato.unbreakabler'
 archivesBaseName = 'unbreakabler'
 
