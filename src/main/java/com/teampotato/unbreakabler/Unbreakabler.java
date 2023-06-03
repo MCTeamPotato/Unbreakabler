@@ -40,7 +40,7 @@ public class Unbreakabler {
     }
 
     public static void giveUnbreakableTag(ItemStack itemStack, Level world) {
-        if (!itemStack.isDamageableItem() || !REMOVE_WEAPONS_AND_ARMORS_DURABILITY.get() || world.isClientSide) return;
+        if (itemStack.isEmpty() || !itemStack.isDamageableItem() || !REMOVE_WEAPONS_AND_ARMORS_DURABILITY.get() || world.isClientSide) return;
         ResourceLocation location = ForgeRegistries.ITEMS.getKey(itemStack.getItem());
         if (location == null) return;
         String regName = location.toString();
