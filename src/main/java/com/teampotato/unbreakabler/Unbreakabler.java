@@ -25,20 +25,17 @@ public class Unbreakabler {
     public static final ForgeConfigSpec.ConfigValue<String> MODE;
 
     static {
-        List<? extends String> stringList = Lists.newArrayList();
-        Predicate<Object> validator = o -> o instanceof String;
-
         ForgeConfigSpec.Builder CONFIG_BUILDER = new ForgeConfigSpec.Builder();
-        CONFIG_BUILDER.comment("Unbreakabler").push("Unbreakable Age");
+        CONFIG_BUILDER.push("Unbreakabler");
         REMOVE_WEAPONS_AND_ARMORS_DURABILITY = CONFIG_BUILDER.define("enable mod", true);
         MODE = CONFIG_BUILDER.comment("Use 'B' for Blacklist, use any other word(s) (e.g.  I love you) for whitelist").define("Blacklist or whitelist", "B");
-        BLACKLIST_OR_WHITELIST_DAMAGEABLE_ITEMS = CONFIG_BUILDER.defineList("Unbreakable tag blacklist/whitelist items", stringList, validator);
+        BLACKLIST_OR_WHITELIST_DAMAGEABLE_ITEMS = CONFIG_BUILDER.defineList("Unbreakable tag blacklist/whitelist items", Lists.newArrayList(), o -> o instanceof String);
         CONFIG_BUILDER.pop();
         COMMON_CONFIG = CONFIG_BUILDER.build();
     }
 
     public static void giveUnbreakableTag(ItemStack itemStack, World world) {
-        if (!itemStack.isDamageableItem() || !REMOVE_WEAPONS_AND_ARMORS_DURABILITY.get() || world.isClientSide || itemStack.getItem().getRegistryName() == null) return;
+        if (itemStack.isEmpty() || !itemStack.isDamageableItem() || !REMOVE_WEAPONS_AND_ARMORS_DURABILITY.get() || world.isClientSide || itemStack.getItem().getRegistryName() == null) return;
         String regName = itemStack.getItem().getRegistryName().toString();
         List<? extends String> list = BLACKLIST_OR_WHITELIST_DAMAGEABLE_ITEMS.get();
         if (MODE.get().equals("B")) {

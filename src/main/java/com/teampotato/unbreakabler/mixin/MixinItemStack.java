@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = ItemStack.class, priority = 93)
-public abstract class MixinItem {
+public abstract class MixinItemStack {
     @Inject(method = "inventoryTick", at = @At("HEAD"))
     private void removeDurability(World world, Entity entity, int slot, boolean isSelected, CallbackInfo ci) {
         Unbreakabler.giveUnbreakableTag((ItemStack) (Object)this, world);
