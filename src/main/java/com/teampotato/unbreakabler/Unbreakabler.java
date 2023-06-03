@@ -38,7 +38,7 @@ public class Unbreakabler {
     }
 
     public static void giveUnbreakableTag(ItemStack itemStack, Level world) {
-        if (!itemStack.isDamageableItem() || !REMOVE_WEAPONS_AND_ARMORS_DURABILITY.get() || world.isClientSide || itemStack.getItem().getRegistryName() == null) return;
+        if (itemStack.isEmpty() || !itemStack.isDamageableItem() || !REMOVE_WEAPONS_AND_ARMORS_DURABILITY.get() || world.isClientSide || itemStack.getItem().getRegistryName() == null) return;
         String regName = itemStack.getItem().getRegistryName().toString();
         List<? extends String> list = BLACKLIST_OR_WHITELIST_DAMAGEABLE_ITEMS.get();
         if (MODE.get().equals("B")) {
