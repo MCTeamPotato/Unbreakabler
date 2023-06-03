@@ -9,7 +9,6 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 @Mod(Unbreakabler.MOD_ID)
 public class Unbreakabler {
