@@ -13,14 +13,14 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
-version = '1.19-1.1.0'
+version = '1.20-1.1.0'
 group = 'com.teampotato.unbreakabler'
 archivesBaseName = 'unbreakabler'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
-    mappings channel: 'official', version: '1.19.2'
+    mappings channel: 'official', version: '1.20.1'
     runs {
         client {
             workingDirectory project.file('run')
@@ -64,7 +64,7 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.2-43.2.14'
+    minecraft 'net.minecraftforge:forge:1.20.1-47.0.34'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
