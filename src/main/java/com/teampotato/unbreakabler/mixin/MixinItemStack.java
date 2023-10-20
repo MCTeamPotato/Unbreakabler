@@ -3,11 +3,9 @@ package com.teampotato.unbreakabler.mixin;
 import com.teampotato.unbreakabler.Unbreakabler;
 import com.teampotato.unbreakabler.api.ExtendedItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -37,12 +35,14 @@ public abstract class MixinItemStack implements ExtendedItemStack {
         if (!this.unbreakabler$checked()) {
             this.unbreakabler$setChecked(true);
             Item item = this.getItem();
-            ResourceLocation id = ForgeRegistries.ITEMS.getKey(item);
-            if (!Unbreakabler.ENABLE_MOD.get() || world.isClientSide() || this.isEmpty() || id == null || !this.isDamageableItem()) return;
+            String desc = item.getDescriptionId();
+            if (desc.contains("unregistered_sadface")) return;
+            String[] descStrings = desc.split("\\.");
+            if (!Unbreakabler.ENABLE_MOD.get() || world.isClientSide() || this.isEmpty() || !this.isDamageableItem()) return;
             if (Unbreakabler.ONLY_WORKS_ON_WEAPONS.get() && !(item instanceof SwordItem || item instanceof AxeItem || item instanceof TridentItem)) return;
             if (Unbreakabler.ONLY_WORK_ON_ARMORS.get() && !(item instanceof ArmorItem || item instanceof ElytraItem)) return;
-            if (!Unbreakabler.VALID_NAMESPACE.get().isEmpty() && !Unbreakabler.VALID_NAMESPACE.get().contains(id.getNamespace())) return;
-            String regName = id.toString();
+            if (!Unbreakabler.VALID_NAMESPACE.get().isEmpty() && !Unbreakabler.VALID_NAMESPACE.get().contains(descStrings[1])) return;
+            String regName = descStrings[1] + ":" + descStrings[2];
             List<? extends String> list = Unbreakabler.BLACKLIST_OR_WHITELIST_DAMAGEABLE_ITEMS.get();
             if (Unbreakabler.MODE.get().equals("B")) {
                 if (list.contains(regName)) return;
