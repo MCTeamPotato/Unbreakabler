@@ -32,7 +32,10 @@ public abstract class MixinItemStack implements ExtendedItemStack {
 
     @Inject(method = "inventoryTick", at = @At("HEAD"))
     private void removeDurability(Level world, Entity p_41668_, int p_41669_, boolean p_41670_, CallbackInfo ci) {
-        if (this.unbreakabler$shouldBeUnbreakable() && this.isDamageableItem()) this.getOrCreateTag().putBoolean("Unbreakable", true);
+        if (this.unbreakabler$shouldBeUnbreakable() && !unbreakabler$unbreakable() && this.isDamageableItem()) {
+            this.getOrCreateTag().putBoolean("Unbreakable", true);
+            this.unbreakabler$setUnbreakable(true);
+        }
         if (!this.unbreakabler$checked()) {
             this.unbreakabler$setChecked(true);
             Item item = this.getItem();
