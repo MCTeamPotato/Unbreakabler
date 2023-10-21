@@ -5,4 +5,6 @@ public interface ExtendedItemStack {
     boolean unbreakabler$shouldBeUnbreakable();
     void unbreakabler$setChecked(boolean checked);
     boolean unbreakabler$checked();
+    void unbreakabler$setUnbreakable(boolean unbreakable);
+    boolean unbreakabler$unbreakable();
 }
