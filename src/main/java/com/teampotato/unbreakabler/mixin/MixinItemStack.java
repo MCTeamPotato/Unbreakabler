@@ -28,6 +28,7 @@ public abstract class MixinItemStack implements ExtendedItemStack {
 
     @Unique private boolean unbreakabler$shouldBeUnbreakable;
     @Unique private boolean unbreakabler$checked;
+    @Unique private boolean unbreakabler$unbreakable;
 
     @Inject(method = "inventoryTick", at = @At("HEAD"))
     private void removeDurability(Level world, Entity p_41668_, int p_41669_, boolean p_41670_, CallbackInfo ci) {
@@ -39,8 +40,7 @@ public abstract class MixinItemStack implements ExtendedItemStack {
             if (desc.contains("unregistered_sadface")) return;
             String[] descStrings = desc.split("\\.");
             if (!Unbreakabler.ENABLE_MOD.get() || world.isClientSide() || this.isEmpty() || !this.isDamageableItem()) return;
-            if (Unbreakabler.ONLY_WORKS_ON_WEAPONS.get() && !(item instanceof SwordItem || item instanceof AxeItem || item instanceof TridentItem)) return;
-            if (Unbreakabler.ONLY_WORK_ON_ARMORS.get() && !(item instanceof ArmorItem || item instanceof ElytraItem)) return;
+            if (Unbreakabler.ONLY_WORKS_ON_ARMORS_AND_WEAPONS.get() && !(item instanceof ArmorItem || item instanceof SwordItem || item instanceof AxeItem || item instanceof TridentItem || item instanceof ElytraItem)) return;
             if (!Unbreakabler.VALID_NAMESPACE.get().isEmpty() && !Unbreakabler.VALID_NAMESPACE.get().contains(descStrings[1])) return;
             String regName = descStrings[1] + ":" + descStrings[2];
             List<? extends String> list = Unbreakabler.BLACKLIST_OR_WHITELIST_DAMAGEABLE_ITEMS.get();
@@ -71,5 +71,15 @@ public abstract class MixinItemStack implements ExtendedItemStack {
     @Override
     public boolean unbreakabler$checked() {
         return this.unbreakabler$checked;
+    }
+
+    @Override
+    public void unbreakabler$setUnbreakable(boolean unbreakable) {
+        this.unbreakabler$unbreakable = unbreakable;
+    }
+
+    @Override
+    public boolean unbreakabler$unbreakable() {
+        return this.unbreakabler$unbreakable;
     }
 }

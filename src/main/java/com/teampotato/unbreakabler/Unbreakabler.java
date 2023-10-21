@@ -13,7 +13,7 @@ public class Unbreakabler {
     public static final String MOD_ID = "unbreakabler";
 
     public static final ForgeConfigSpec COMMON_CONFIG;
-    public static final ForgeConfigSpec.BooleanValue ENABLE_MOD, ONLY_WORK_ON_ARMORS, ONLY_WORKS_ON_WEAPONS;
+    public static final ForgeConfigSpec.BooleanValue ENABLE_MOD, ONLY_WORKS_ON_ARMORS_AND_WEAPONS;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> BLACKLIST_OR_WHITELIST_DAMAGEABLE_ITEMS, VALID_NAMESPACE;
     public static final ForgeConfigSpec.ConfigValue<String> MODE;
 
@@ -21,8 +21,7 @@ public class Unbreakabler {
         ForgeConfigSpec.Builder CONFIG_BUILDER = new ForgeConfigSpec.Builder();
         CONFIG_BUILDER.push("Unbreakabler");
         ENABLE_MOD = CONFIG_BUILDER.define("EnableMod", true);
-        ONLY_WORK_ON_ARMORS = CONFIG_BUILDER.define("OnlyWorkOnArmors", false);
-        ONLY_WORKS_ON_WEAPONS = CONFIG_BUILDER.define("OnlyWorkOnWeapons", false);
+        ONLY_WORKS_ON_ARMORS_AND_WEAPONS = CONFIG_BUILDER.define("OnlyWorksOnArmorsAndWeapons", false);
         MODE = CONFIG_BUILDER.comment("Use 'B' for Blacklist mode, use any other word(s) (e.g.  I love you) for whitelist mode").define("Mode", "B");
         BLACKLIST_OR_WHITELIST_DAMAGEABLE_ITEMS = CONFIG_BUILDER.comment("Unbreakable tag blacklist/whitelist items").defineList("Items", new ObjectArrayList<>(), o -> o instanceof String);
         VALID_NAMESPACE = CONFIG_BUILDER.comment("If this is defined, only the mod that has this modID will be unbreakable.").defineList("ValidMods", new ObjectArrayList<>(), o -> o instanceof String);
