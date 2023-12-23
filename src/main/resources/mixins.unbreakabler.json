@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "package": "com.teampotato.unbreakabler.mixin",
+  "refmap": "mixins.unbreakabler.refmap.json",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "EntityPlayerMixin",
+    "GameRegistryMixin",
+    "MixinItem"
+  ]
+}

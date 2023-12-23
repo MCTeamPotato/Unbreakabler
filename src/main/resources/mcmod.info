@@ -1,0 +1,16 @@
+[
+{
+  "modid": "unbreakabler",
+  "name": "Unbreakabler",
+  "description": "",
+  "version": "1.0",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["TeamPotato"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
