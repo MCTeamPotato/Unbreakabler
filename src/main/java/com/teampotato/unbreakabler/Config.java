@@ -4,6 +4,10 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Config {
     public static boolean enabled = true;
@@ -18,6 +22,8 @@ public class Config {
         syncConfig();
     }
 
+    public static final Set<String> ITEMS = new HashSet<>(), VALID_MODS = new HashSet<>();
+
     public static void syncConfig() {
         Property property;
         config.load();
@@ -25,8 +31,10 @@ public class Config {
         enabled = property.getBoolean();
         property = config.get(Configuration.CATEGORY_GENERAL, "items", new String[]{}, "Unbreakable tag blacklist/whitelist items (write items' translation key here)");
         items = property.getStringList();
+        ITEMS.addAll(Arrays.stream(items).collect(Collectors.toSet()));
         property = config.get(Configuration.CATEGORY_GENERAL, "validMods", new String[]{}, "If this is defined, only the items that has these modIDs in their translation key will be unbreakable.");
         validMods = property.getStringList();
+        VALID_MODS.addAll(Arrays.stream(validMods).collect(Collectors.toSet()));
         property = config.get(Configuration.CATEGORY_GENERAL, "mode", "B", "Use 'B' for Blacklist mode, use any other word(s) (e.g.  I love you) for whitelist mode");
         mode = property.getString();
 
