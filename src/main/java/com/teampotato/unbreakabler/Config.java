@@ -23,9 +23,9 @@ public class Config {
         config.load();
         property = config.get(Configuration.CATEGORY_GENERAL, "enabled", true, "EnableMod");
         enabled = property.getBoolean();
-        property = config.get(Configuration.CATEGORY_GENERAL, "items", new String[]{}, "Unbreakable tag blacklist/whitelist items");
+        property = config.get(Configuration.CATEGORY_GENERAL, "items", new String[]{}, "Unbreakable tag blacklist/whitelist items (write items' translation key here)");
         items = property.getStringList();
-        property = config.get(Configuration.CATEGORY_GENERAL, "validMods", new String[]{}, "If this is defined, only the mod that has this modID will be unbreakable.");
+        property = config.get(Configuration.CATEGORY_GENERAL, "validMods", new String[]{}, "If this is defined, only the items that has these modIDs in their translation key will be unbreakable.");
         validMods = property.getStringList();
         property = config.get(Configuration.CATEGORY_GENERAL, "mode", "B", "Use 'B' for Blacklist mode, use any other word(s) (e.g.  I love you) for whitelist mode");
         mode = property.getString();
