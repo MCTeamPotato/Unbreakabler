@@ -12,7 +12,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'idea'
 
 group = "com.teampotato.${modId}"
-version = '1.12.2-0.0.1'
+version = '1.12.2-0.0.2'
 
 java {
     archivesBaseName = "${modId}"

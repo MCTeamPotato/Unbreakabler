@@ -24,6 +24,7 @@ public class Unbreakabler {
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (!Config.enabled) return;
         event.player.getArmorInventoryList().forEach(Unbreakabler::process);
+        event.player.inventory.mainInventory.forEach(Unbreakabler::process);
         process(event.player.getHeldItemOffhand());
         process(event.player.getHeldItemMainhand());
     }
