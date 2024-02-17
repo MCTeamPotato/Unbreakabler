@@ -1,87 +1,57 @@
 buildscript {
     repositories {
-        maven { url = 'https://maven.minecraftforge.net' }
-        mavenCentral()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath group: 'org.spongepowered',  name: 'mixingradle', version: '0.7+'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
     }
 }
 
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = '1.16.5-1.2.2'
-group = 'com.teampotato.unbreakabler'
-archivesBaseName = 'unbreakabler'
+version = "1.8.9-1.0.0"
+group= "com.teampotato.unbreakabler"
+archivesBaseName = "unbreakabler"
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(8)
+sourceCompatibility = targetCompatibility = "1.8"
 
 minecraft {
-    mappings channel: 'official', version: '1.16.5'
-    runs {
-        client {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'info'
+    version = "1.8.9-11.15.1.1762"
+    runDir = "run"
+    mappings = "stable_20"
+}
 
-            mods {
-                unbreakabler {
-                    source sourceSets.main
-                }
-            }
-        }
+dependencies {
 
-        server {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'info'
+}
 
-            mods {
-                unbreakabler {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        data {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'info'
-            args '--mod', 'unbreakabler', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-
-            mods {
-                unbreakabler {
-                    source sourceSets.main
-                }
-            }
-        }
+processResources
+{
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
     }
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
-
-dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-}
-
-mixin {
-    add sourceSets.main, "unbreakabler.refmap.json"
-    config "unbreakabler.mixins.json"
-}
 
 jar {
     manifest {
         attributes([
-            "Implementation-Title": project.name,
-            "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"teampotato",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-            "MixinConfigs": "unbreakabler.mixins.json"
+                "Specification-Title"     : "unbreakabler",
+                "Specification-Vendor"    : "teampotato",
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : "1",
+                "Implementation-Vendor"   : "teampotato",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
 }
-
-jar.finalizedBy('reobfJar') 

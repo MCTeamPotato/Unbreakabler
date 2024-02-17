@@ -1,0 +1,16 @@
+[
+  {
+    "modid": "unbreakabler",
+    "name": "Unbreakabler",
+    "description": "A Minecraft mod.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": ["TeamPotato"],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
